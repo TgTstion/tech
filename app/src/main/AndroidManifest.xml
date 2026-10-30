@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Sensors are optional: the app still runs (with on-screen buttons) without them. -->
+    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="false" />
+    <uses-feature android:name="android.hardware.sensor.proximity" android:required="false" />
+
+    <!-- Android 11+ package visibility: lets TextToSpeech find the system TTS engine. -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+    </queries>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Tech">
+
+        <!-- Screen 3: Practice Hub (launcher) -->
+        <activity
+            android:name=".ui.hub.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Screen 1: Generator & Batch Selection (opened by Explicit Intent) -->
+        <activity
+            android:name=".ui.generator.GeneratorActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.hub.MainActivity" />
+
+        <!-- Screen 2: Flashcard Practice (opened by Explicit Intent with extras).
+             Locked to portrait so the tilt axis is predictable. -->
+        <activity
+            android:name=".ui.practice.PracticeActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".ui.hub.MainActivity" />
+    </application>
+</manifest>
